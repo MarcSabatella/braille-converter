@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
     let unicodeBraille = "";
     for (const line of inputLines) {
-      const cellPatterns = convertNumericToBraille(line);
+      const cellPatterns = convertPatternToBraille(line);
       const unicodeLine = cellPatterns.split(" ").map(generate_braille_unicode).join(" ");
       unicodeBraille += unicodeLine + "<br>"; // Use <br> for line breaks
     }
@@ -33,16 +33,32 @@ document.addEventListener("DOMContentLoaded", function () {
     return String.fromCodePoint(braille_unicode);
   }
 
-  function convertNumericToBraille(numericPattern) {
-    const numericArr = numericPattern.split(" ");
+  function convertSixKeyToNumeric(sixKeyString) {
+    const perkinsToNumeric = {
+      'f': '1',
+      'd': '2',
+      's': '3',
+      'j': '4',
+      'k': '5',
+      'l': '6',
+      ';': '0'
+    };
+  
+    const numericString = sixKeyString.split('').map(char => perkinsToNumeric[char] || char).join('');
+    return numericString;
+  }
+  
+  function convertPatternToBraille(inputPattern) {
+    const patternArr = inputPattern.split(" ");
     let braillePattern = "";
   
-    for (const pattern of numericArr) {
-      const digits = pattern.split("");
+    for (const pattern of patternArr) {
+      const numericPattern = convertSixKeyToNumeric(pattern);
+      const digits = numericPattern.split("");
       let cellPattern = "";
   
       for (let i = 0; i < 6; i++) {
-        cellPattern += (digits.includes((i + 1).toString()) ? "1" : "0");
+        cellPattern += digits.includes((i + 1).toString()) ? "1" : "0";
       }
   
       braillePattern += cellPattern + " ";
