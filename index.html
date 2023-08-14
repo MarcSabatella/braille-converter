@@ -5,13 +5,17 @@
   <title>Braille Converter</title>
   <style>
     body {
-      padding: 16px;
+      margin: 16px;
     }
-    textarea {
+    .textarea-container {
       width: 100%;
+      overflow-x: auto;
+    }
+    #brailleInput {
+      width: calc(100% - 8px);
       height: 8em;
       resize: none;
-      overflow-x: auto;
+      white-space: nowrap;
     }
     #result {
       font-size: 2em;
@@ -22,8 +26,11 @@
 </head>
 <body>
   <h2>Braille Converter</h2>
-  <label for="brailleInput">Enter Braille Patterns:</label>
-  <textarea id="brailleInput" rows="8" cols="240"></textarea>
+  <p>This tool converts from alphanumeric input like "1456 fdjl 135 ; 1235 135 0 fsjkl" into Unicode.<br>Numbers represent dots using the standard 1-6 convention; letters are as with the six-key input system (fdsjkl for 123456).<br>0 or semicolon (;) represent a blank cell.</p>
+  <label for="brailleInput">Enter braille using numeric or the six-key style of input:</label>
+  <div class="textarea-container">
+    <textarea id="brailleInput" rows="8"></textarea>
+  </div>
   <button id="convertButton">Convert</button>
   <div id="result"></div>
   <script src="popup.js"></script>
