@@ -13,26 +13,35 @@
     }
     #brailleInput {
       width: calc(100% - 8px);
-      height: 8em;
-      resize: none;
       white-space: nowrap;
     }
     #result {
+      display: block;
       font-size: 2em;
-      line-height: 1.25;
-      margin-top: 1em;
+      line-height: 1.5;
+      width: calc(100% - 8px);
+      /*height: 8em;*/
+      margin-top: 16px;
+      user-select: text;
+      cursor: text;
     }
   </style>
 </head>
 <body>
   <h2>Braille Converter</h2>
-  <p>This tool converts from alphanumeric input like "1456 fdjl 135 ; 1235 135 0 fsjkl" into Unicode.<br>Numbers represent dots using the standard 1-6 convention; letters are as with the six-key input system (fdsjkl for 123456).<br>0 or semicolon (;) represent a blank cell.</p>
+  <p>This tool converts from alphanumeric input like "1456 fdjl 135 ; 1235 135 0 fsjkl" into Unicode.</p>
+  <ul>
+    <li>Numbers represent dots using the standard 1-6 convention</li>
+    <li>letters are as with the six-key input system (fdsjkl for 123456)</li>
+    <li>0 or semicolon (;) represent a blank cell</li>
+    </ul>
+  <p>After pressing the Convert button, the resulting Unicode braille can be copied and pasted into a text editor.</p>
   <label for="brailleInput">Enter braille using numeric or the six-key style of input:</label>
   <div class="textarea-container">
-    <textarea id="brailleInput" rows="8"></textarea>
+    <textarea id="brailleInput" rows="4"></textarea>
   </div>
   <button id="convertButton">Convert</button>
-  <div id="result"></div>
+  <textarea readonly id="result" rows="4" tabindex="0" onfocus="this.select();"></textarea>
   <script src="popup.js"></script>
 </body>
 </html>

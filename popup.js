@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const convertButton = document.getElementById("convertButton");
   const brailleInput = document.getElementById("brailleInput");
-  const resultDiv = document.getElementById("result");
+  const resultElement = document.getElementById("result");
 
   convertButton.addEventListener("click", function () {
     const input = brailleInput.value.trim();
@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", function () {
     for (const line of inputLines) {
       const cellPatterns = convertPatternToBraille(line);
       const unicodeLine = cellPatterns.split(" ").map(generate_braille_unicode).join(" ");
-      unicodeBraille += unicodeLine + "<br>"; // Use <br> for line breaks
+      unicodeBraille += unicodeLine + "\n";
     }
   
-    resultDiv.innerHTML = unicodeBraille; // Use innerHTML to interpret <br> elements
+    resultElement.value = unicodeBraille; // Use innerHTML to interpret <br> elements
   });
 
   function generate_braille_unicode(braille_pattern) {
