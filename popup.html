@@ -1,30 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <link rel="icon" type="image/png" href="images/icon48.png">
   <title>Braille Converter</title>
   <style>
     body {
-      width: 1200px;
-      padding: 16px;
+      margin: 16px;
     }
-    textarea {
+    .textarea-container {
       width: 100%;
-      height: 8em;
-      resize: none;
       overflow-x: auto;
     }
+    #brailleInput {
+      width: calc(100% - 8px);
+      white-space: nowrap;
+    }
     #result {
-      font-size: 2em; /* Increase font size for larger Unicode Braille characters */
-      margin-top: 1em;
+      display: block;
+      font-size: 2em;
+      line-height: 1.5;
+      width: calc(100% - 8px);
+      /*height: 8em;*/
+      margin-top: 16px;
+      user-select: text;
+      cursor: text;
     }
   </style>
 </head>
 <body>
   <h2>Braille Converter</h2>
-  <label for="brailleInput">Enter Braille Patterns:</label>
-  <textarea id="brailleInput" rows="8" cols="240"></textarea>
-  <button id="convertButton">Convert</button>
-  <div id="result"></div>
+  <p>This tool converts from alphanumeric input representing dot patterns like "1456 156 1234" or "fjkl fkl fdsj" into Unicode. It can also convert from braille ASCII like "?:P".</p>
+  <p>For dot patterns:</p>
+  <ul>
+    <li>Numbers represent dots using the standard 1-6 convention</li>
+    <li>letters are as with the six-key input system (fdsjkl for 123456)</li>
+    <li>0 or semicolon (;) represent a blank cell</li>
+    </ul>
+  <p>After pressing one of the Convert buttons, the resulting Unicode braille can be copied and pasted into a text editor.</p>
+  <label for="brailleInput">Enter braille using numeric or the six-key style of input:</label>
+  <div class="textarea-container">
+    <textarea id="brailleInput" rows="4"></textarea>
+  </div>
+  <button id="convertDotsButton" accesskey="d">Convert from dots</button>
+  <button id="convertAsciiButton" accesskey="k">Convert from ASCII</button>
+  <textarea readonly id="result" rows="4" tabindex="0" onfocus="this.select();"></textarea>
   <script src="popup.js"></script>
 </body>
 </html>
